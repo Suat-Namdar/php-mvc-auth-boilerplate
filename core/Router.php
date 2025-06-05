@@ -43,6 +43,15 @@ class Router
         $currentMethod = $_SERVER['REQUEST_METHOD'];
         $currentUri = $_SERVER['REQUEST_URI'];
         $currentUri = parse_url($currentUri, PHP_URL_PATH);
+
+        // Trailing slash normalization
+        $currentUri = rtrim($currentUri, '/');
+        $path = rtrim($path, '/');
+        if ($currentUri === '')
+            $currentUri = '/';
+        if ($path === '')
+            $path = '/';
+
         if ($currentMethod != $method) {
             return false;
         }

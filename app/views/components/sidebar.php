@@ -1,7 +1,7 @@
 <aside id="sidebar"
     class="bg-white absolute w-64 h-dvh p-4 top-0 left-0 flex flex-col overflow-y-hidden ease-linear lg:static -translate-x-full lg:translate-x-0 z-[999] duration-300 ease-linear shadow-lg">
     <div class="flex items-center justify-between py-2.5 px-2">
-        <h1 class="font-bold text-xl">PHP-MVC</h1>
+        <h1 class="font-bold text-xl">SELOJI-MVC</h1>
         <button id="closeSidebar" onclick="closeSidebar()" class="lg:hidden">
             <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -18,6 +18,10 @@
         <a href="/products" data-route="/products" aria-label="products"
             class="px-4 py-3 flex items-center space-x-4 rounded-lg hover:bg-gray-100">
             <span class="-mr-1 font-medium">Products</span>
+        </a>
+        <a href="/isler" data-route="/isler" aria-label="isler"
+            class="px-4 py-3 flex items-center space-x-4 rounded-lg hover:bg-gray-100">
+            <span class="-mr-1 font-medium">İşler</span>
         </a>
     </div>
 </aside>
