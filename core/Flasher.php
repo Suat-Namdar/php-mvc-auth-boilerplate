@@ -2,6 +2,8 @@
 
 namespace core;
 
+require_once '../core/AutoLoader.php';
+
 class Flasher
 {
     public static function setFlash($type, $message)

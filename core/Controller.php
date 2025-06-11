@@ -2,6 +2,8 @@
 
 namespace core;
 
+require_once '../core/AutoLoader.php';
+
 class Controller
 {
     protected function view($filename = '', $data = [])
@@ -14,4 +16,5 @@ class Controller
     {
         return isset($_SESSION['user']);
     }
+
 }

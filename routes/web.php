@@ -3,7 +3,9 @@
 namespace routes;
 
 require_once '../core/Autoloader.php';
+
 use core\Router;
+use core\Debug;
 
 Router::get('/', function () {
     if (isset($_SESSION['user'])) {
@@ -22,11 +24,21 @@ Router::get('/products/{id}', 'ProductController', 'show');
 Router::put('/products/{id}', 'ProductController', 'update');
 Router::delete('/products/{id}', 'ProductController', 'destroy');
 
-Router::get('/isler', 'IslerController', 'index');
-Router::post('/isler', 'IslerController', 'store');
-Router::get('/isler/{id}', 'IslerController', 'show');
-Router::put('/isler/{id}', 'IslerController', 'update');
-Router::delete('/isler/{id}', 'IslerController', 'destroy');
+Router::group('/isler', function() {
+    Router::get('/', 'IslerController', 'index');
+    Router::post('/', 'IslerController', 'create');
+    Router::get('/{id}', 'IslerController', 'read');
+    Router::put('/{id}', 'IslerController', 'update');
+    Router::delete('/{id}', 'IslerController', 'delete');
+});
+
+Router::group('/alislar', function() {
+    Router::get('/', 'AlislarController', 'index');
+    Router::post('/', 'AlislarController', 'create');
+    Router::get('/{id}', 'AlislarController', 'read');
+    Router::put('/{id}', 'AlislarController', 'update');
+    Router::delete('/{id}', 'AlislarController', 'delete');
+});
 
 include_once '../app/views/404.php';
 Router::get('/404', function () {

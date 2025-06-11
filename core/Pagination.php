@@ -1,6 +1,8 @@
 <?php
 namespace core;
 
+require_once '../core/AutoLoader.php';
+
 class Pagination
 {
     private $currentPage;

@@ -2,6 +2,8 @@
 
 namespace core;
 
+require_once '../core/AutoLoader.php';
+
 use PDO;
 use utils\DBConnection;
 
@@ -111,5 +113,12 @@ class Model
             'totalPages' => $totalPages,
             'currentPage' => $currentPage
         ];
+    }
+
+    public function query(string $sql, array $params = [])
+    {
+        $prepare = $this->pdo->prepare($sql);
+        $prepare->execute($params);
+        return $prepare->fetchAll(PDO::FETCH_OBJ);
     }
 }

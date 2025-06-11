@@ -2,11 +2,9 @@
 
 namespace app\models;
 
-require_once '../core/Autoloader.php';
-
 use core\Model;
 
-class Isler extends Model
+class IslerSave extends Model
 {
     protected string $table = 'isler';
 }

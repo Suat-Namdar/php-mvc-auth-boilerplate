@@ -12,16 +12,24 @@
     </div>
     <div class="space-y-2 mt-4">
         <a href="/dashboard" data-route="/dashboard" aria-label="dashboard"
-            class="px-4 py-3 flex items-center space-x-4 rounded-lg hover:bg-gray-100">
+            class="px-3 py-3 flex items-center space-x-3 rounded-lg hover:bg-gray-100">
+            <i class="fa-solid fa-home text-gray-600"></i>
             <span class="-mr-1 font-medium">Dashboard</span>
         </a>
         <a href="/products" data-route="/products" aria-label="products"
-            class="px-4 py-3 flex items-center space-x-4 rounded-lg hover:bg-gray-100">
+            class="px-3 py-3 flex items-center space-x-3 rounded-lg hover:bg-gray-100">
+            <i class="fa-solid fa-box text-gray-600"></i>
             <span class="-mr-1 font-medium">Products</span>
         </a>
         <a href="/isler" data-route="/isler" aria-label="isler"
-            class="px-4 py-3 flex items-center space-x-4 rounded-lg hover:bg-gray-100">
+            class="px-3 py-3 flex items-center space-x-3 rounded-lg hover:bg-gray-100">
+            <i class="fa-solid fa-briefcase text-gray-600"></i>
             <span class="-mr-1 font-medium">İşler</span>
+        </a>
+        <a href="/alislar" data-route="/alislar" aria-label="alislar"
+            class="px-3 py-3 flex items-center space-x-3 rounded-lg hover:bg-gray-100">
+            <i class="fa-solid fa-briefcase text-gray-600"></i>
+            <span class="-mr-1 font-medium">Alışlar</span>
         </a>
     </div>
 </aside>

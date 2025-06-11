@@ -2,8 +2,6 @@
 
 namespace app\models;
 
-require_once '../core/Autoloader.php';
-
 use core\Model;
 
 class User extends Model

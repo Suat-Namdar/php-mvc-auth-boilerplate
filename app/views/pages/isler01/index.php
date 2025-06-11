@@ -1,45 +1,35 @@
 <?php
+
+$title = 'İşler Listesi';
 ob_start();
+
 ?>
-<!-- DataTables CSS -->
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
-<!-- DataTables Buttons CSS -->
-<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
 
 <section class="bg-white rounded p-4 shadow-lg">
-    <div class="max-w-full overflow-x-auto inline-flex justify-between items-center mb-3">
-        <h2 class="font-bold text-xl">
-            <i class="fa-solid fa-briefcase mr-2"></i>
-            <?= $title ?? '' ?>
-        </h2>
+    <h2 class="font-bold text-xl mb-4">İşler Listesi</h2>
+    <div class="max-w-full overflow-x-auto">
         <button id="openIslerModal"
-            class="absolute right-8 bg-cyan-500 hover:bg-cyan-600 text-white font-semibold py-2 px-4 rounded">
-            <i class="fa-solid fa-plus mr-2"></i>
+            class="bg-cyan-500 hover:bg-cyan-600 text-white font-semibold py-2 px-4 rounded mb-4">
             Yeni İş Ekle
         </button>
-    </div>
-
-    <div class="max-w-full overflow-x-auto border-b border-gray-300 mb-4"></div>
-
-    <div class="max-w-full overflow-x-auto">
-        <table id="islerTable" class="w-full table-auto">
+        <table class="w-full table-auto">
             <thead>
                 <tr class="text-center bg-gray-300">
-                    <th class="py-3 px-4 border-r border-white font-medium w-[15px]">No</th>
-                    <th class="py-3 px-4 border-r border-white font-medium">tarih</th>
+                    <th class="py-3 px-4 border-r border-white font-medium w-[20px]">No</th>
+                    <th class="py-3 px-4 border-r border-white font-medium w-40">tarih</th>
                     <th class="py-3 px-4 border-r border-white font-medium">plaka</th>
                     <th class="py-3 px-4 border-r border-white font-medium">yukleme_yeri</th>
                     <th class="py-3 px-4 border-r border-white font-medium">bosaltma_yeri</th>
-                    <th class="py-3 px-4 border-r border-white font-medium">fiyat</th>
+                    <th class="py-3 px-4 border-r border-white font-medium" >fiyat</th>
                     <th class="py-3 px-4 border-r border-white font-medium">fatura_firma</th>
                     <th class="py-3 px-4 border-r border-white font-medium">fatura_no</th>
                     <th class="py-3 px-4 border-r border-white font-medium">fatura_tarihi</th>
                     <th class="py-3 px-4 border-r border-white font-medium">odeme_tarihi</th>
-                    <th class="py-3 px-4 font-medium w-[15px]">İşlemler</th>
+                    <th class="py-3 px-4 font-medium">İşlemler</th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($isler as $is): ?>
+                <?php foreach ($isler['data'] as $is): ?>
                     <tr class="text-center text-nowrap">
                         <td class="border-b border-[#eee] py-3 px-4"><?= $is->id ?></td>
                         <td class="border-b border-[#eee] py-3 px-4" data-type="tarih"><?= $is->tarih ?? '' ?></td>
@@ -51,19 +41,15 @@ ob_start();
                         <td class="border-b border-[#eee] py-3 px-4"><?= $is->fatura_no ?? '' ?></td>
                         <td class="border-b border-[#eee] py-3 px-4" data-type="tarih"><?= $is->fatura_tarihi ?? '' ?></td>
                         <td class="border-b border-[#eee] py-3 px-4" data-type="tarih"><?= $is->odeme_tarihi ?? '' ?></td>
-                        <!-- İşlemler sütunu -->
-                        <td class="border-b border-[#eee]">
-                            <a href="javascript:void(0)" class="viewIsBtn hover:text-blue-500 px-1"
+
+                        <td class="border-b border-[#eee] p3-5 px-4">
+                            <a href="javascript:void(0)" class="viewIsBtn hover:text-blue-500"
                                 data-is='<?= json_encode($is, JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) ?>'>
                                 <i class="fa-solid fa-eye"></i>
                             </a>
-                            <a href="javascript:void(0)" class="editIsBtn hover:text-green-500 px-1"
+                            <a href="javascript:void(0)" class="editIsBtn hover:text-green-500"
                                 data-is='<?= json_encode($is, JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) ?>'>
                                 <i class="fa-solid fa-pen"></i>
-                            </a>
-                            <a href="javascript:void(0)" class="deleteIsBtn hover:text-red-500 px-1"
-                                data-is='<?= json_encode($is, JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) ?>'>
-                                <i class="fa-solid fa-trash"></i>
                             </a>
                         </td>
                     </tr>
@@ -71,13 +57,16 @@ ob_start();
             </tbody>
         </table>
     </div>
+
+    <div class="mt-4">
+        <?= $pagination ?>
+    </div>
 </section>
 
 <!-- Modal -->
 <div id="islerModal" class="fixed z-[9999] inset-0 hidden bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
     <div class="relative top-1/4 -translate-y-1/4 mx-20 p-5 border w-xl shadow-lg rounded-md bg-white">
         <h3 id="modalTitle" class="text-xl font-bold text-gray-900 mb-4 text-center">Yeni İş Ekle</h3>
-        <span class="text-red-500 mb-4 block text-center" id="dataID"></span>
         <form id="islerForm" action="/isler" method="post" enctype="multipart/form-data">
             <input type="hidden" name="_method" id="formMethod" value="POST">
             <input type="hidden" name="id" id="is_id">
@@ -92,7 +81,7 @@ ob_start();
                 <input type="number" name="arac_id" id="arac_id" required
                     class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-cyan-500">
             </div>
-            <!-- Butonlar -->
+            <!-- ...diğer alanlar... -->
             <div class="flex justify-end">
                 <button type="button" id="closeIslerModal"
                     class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mr-2">
@@ -125,7 +114,6 @@ ob_start();
         }
         if (mode === 'edit') {
             $('#modalTitle').text('İşi Güncelle');
-            $('#dataID').text(data.id);
             $('#islerForm').attr('action', '/isler/' + data.id);
             $('#formMethod').val('PUT');
             $('#modalSubmitBtn').show().text('Güncelle');
@@ -137,21 +125,8 @@ ob_start();
         }
         if (mode === 'view') {
             $('#modalTitle').text('İş Detayı');
-            $('#dataID').text(data.id);
             $('#modalSubmitBtn').hide();
             $('#islerForm input, #islerForm select').prop('readonly', true).prop('disabled', true);
-            // Alanları doldur
-            for (const key in data) {
-                $('#' + key).val(data[key]);
-            }
-        }
-        if (mode === 'delete') {
-            $('#modalTitle').text('İşi Sil');
-            $('#dataID').text(data.id);
-            $('#islerForm').attr('action', '/isler/' + data.id);
-            $('#formMethod').val('DELETE');
-            $('#modalSubmitBtn').show().text('Sil');
-            $('#islerForm input, #islerForm select').prop('readonly', false).prop('disabled', false);
             // Alanları doldur
             for (const key in data) {
                 $('#' + key).val(data[key]);
@@ -182,10 +157,6 @@ ob_start();
         const data = $(this).data('is');
         openIslerModal('view', data);
     });
-    $('.deleteIsBtn').click(function () {
-        const data = $(this).data('is');
-        openIslerModal('delete', data);
-    });
 </script>
 
 <script>
@@ -208,73 +179,6 @@ ob_start();
         });
     });
 </script>
-
-<script>
-    $(document).ready(function () {
-        $('#islerTable').DataTable({
-            dom: 'Bfrtip',
-            language: {
-                url: "//cdn.datatables.net/plug-ins/1.13.7/i18n/tr.json"
-            },
-            buttons: [
-                {
-                    extend: 'copyHtml5',
-                    text: '<i class="fa fa-copy"></i> Kopyala',
-                    className: 'btn btn-copy bg-cyan-500 text-white px-3 py-1 rounded mr-2'
-                },
-                {
-                    extend: 'excelHtml5',
-                    text: '<i class="fa fa-file-excel"></i> Excel',
-                    className: 'btn btn-excel bg-green-600 text-white px-3 py-1 rounded mr-2'
-                },
-                {
-                    extend: 'csvHtml5',
-                    text: '<i class="fa fa-file-csv"></i> CSV',
-                    className: 'btn btn-csv bg-blue-600 text-white px-3 py-1 rounded mr-2'
-                },
-                {
-                    extend: 'pdfHtml5',
-                    text: '<i class="fa fa-file-pdf"></i> PDF',
-                    className: 'btn btn-pdf bg-red-600 text-white px-3 py-1 rounded mr-2'
-                },
-                {
-                    extend: 'print',
-                    text: '<i class="fa fa-print"></i> Yazdır',
-                    className: 'btn btn-print bg-gray-700 text-white px-3 py-1 rounded'
-                }
-            ],
-            initComplete: function () {
-                this.api()
-                    .columns()
-                    .every(function () {
-                        // Get the input element from the second header row
-                        var input = $('input', this.header(1));
-                        var column = this;
-
-                        // Event listener for user input
-                        input.on('keyup', function () {
-                            if (column.search() !== input.val()) {
-                                column.search(input.val()).draw();
-                            }
-                        });
-                    });
-            }
-        });
-    });
-</script>
-
-<!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<!-- DataTables JS -->
-<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-<!-- DataTables Buttons JS ve bağımlılıkları -->
-<script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
 
 <?php
 $scripts = ob_get_clean();

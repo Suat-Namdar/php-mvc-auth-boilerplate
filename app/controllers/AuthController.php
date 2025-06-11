@@ -2,11 +2,9 @@
 
 namespace app\controllers;
 
-require_once '../core/Autoloader.php';
-
+use core\Flasher;
 use core\Controller;
 use app\models\User;
-use core\Flasher;
 
 class AuthController extends Controller
 {

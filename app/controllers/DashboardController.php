@@ -2,10 +2,8 @@
 
 namespace app\controllers;
 
-require_once '../core/Autoloader.php';
-
-use app\models\Product;
 use core\Controller;
+use app\models\Product;
 
 class DashboardController extends Controller
 {

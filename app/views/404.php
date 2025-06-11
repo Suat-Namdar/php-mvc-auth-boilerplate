@@ -6,5 +6,6 @@ $content = '
         <h1 class="text-2xl font-bold text-center">404 Not Found</h1>
         <p class="text-center mt-4">Aradığınız sayfa mevcut değil.</p>
     </div>
-</section>';
-include_once __DIR__ . '/../views/layouts/guest.php';
+</section>
+';
+include_once __DIR__ . '/layouts/guest.php';

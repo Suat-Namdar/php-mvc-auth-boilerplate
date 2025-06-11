@@ -7,10 +7,10 @@ require_once '../core/AutoLoader.php';
 use core\Debug;
 use core\Flasher;
 use core\Controller;
-use app\models\IslerView;
-use app\models\IslerSave;
+use app\models\AlisView;
+use app\models\AlisSave;
 
-class IslerController extends Controller
+class AlislarController extends Controller
 {
     public function __construct()
     {
@@ -22,11 +22,11 @@ class IslerController extends Controller
 
     public function index()
     {
-        $isler = new IslerView();
-        $isler = $isler->all(); // isler tablosundaki tüm verileri al
-        $this->view('pages/isler/index', [
-            'isler' => $isler,
-            'title' => 'İşler Listesi',
+        $alislar = new AlisView();
+        $datalar = $alislar->all(); // alislar tablosundaki tüm verileri al
+        $this->view('pages/alislar/index', [
+            'datalar' => $datalar,
+            'title' => 'Alış Listesi',
         ]);
     }
 
@@ -39,33 +39,18 @@ class IslerController extends Controller
             $fields = $_POST;
             unset($fields['_method']); // method spoofing için eklenen alanı çıkar
             unset($fields['id']); // id alanını güncelleme işleminde kullanmamak için çıkar
-            $is = new IslerSave(); // isler tablosuna veri eklemek için setTable metodunu kullan
-            $is->create($fields);
+            $datalar = new AlisSave(); // alislar tablosuna veri eklemek için setTable metodunu kullan
+            $datalar->create($fields);
 
-            Flasher::setFlash('success', 'Is created successfully.');
-            header('Location: /isler');
+            Flasher::setFlash('success', 'Alis created successfully.');
+            header('Location: /alislar');
             exit;
         } catch (\Throwable $th) {
             Flasher::setFlash('error', $th->getMessage());
-            header('Location: /isler');
+            header('Location: /alislar');
             exit;
         }
     }
-
-    // public function read($data)
-    // {
-    //     $is = new IslerView();
-    //     $is = $is->find($data['id']); // isler tablosundan id ile veriyi bul
-    //     if (!$is) {
-    //         Flasher::setFlash('error', 'Is not found.');
-    //         header('Location: /isler');
-    //         exit;
-    //     }
-    //     $this->view('pages/isler/read', [
-    //         'is' => $is,
-    //         'title' => 'Is Detay',
-    //     ]);
-    // }
 
     public function update($data)
     {
@@ -74,15 +59,15 @@ class IslerController extends Controller
             $fields = $_POST;
             unset($fields['_method']); // method spoofing için eklenen alanı çıkar
             unset($fields['id']); // id alanını güncelleme işleminde kullanmamak için çıkar
-            $is = new IslerSave();
-            $is->update($fields, $data['id']);
-            Flasher::setFlash('success', 'Is updated successfully.');
-            header('Location: /isler');
-            // header('Location: /isler/' . $data['id']);
+            $datalar = new AlisSave();
+            $datalar->update($fields, $data['id']);
+            Flasher::setFlash('success', 'Alis updated successfully.');
+            header('Location: /alislar');
+            // header('Location: /alislar/' . $data['id']);
             exit;
         } catch (\Throwable $th) {
             Flasher::setFlash('error', $th->getMessage());
-            header('Location: /isler/' . $data['id']);
+            header('Location: /alislar/' . $data['id']);
             exit;
         }
     }
@@ -91,11 +76,11 @@ class IslerController extends Controller
         $fields = $_POST;
         unset($fields['_method']); // method spoofing için eklenen alanı çıkar
         unset($fields['id']); // id alanını güncelleme işleminde kullanmamak için çıkar
-        $is = new IslerSave();
-        $is = $is->delete($data['id']);
+        $datalar = new AlisSave();
+        $datalar->delete($data['id']);
 
-        Flasher::setFlash('success', 'Is deleted successfully.');
-        header('Location: /isler');
+        Flasher::setFlash('success', 'Alis deleted successfully.');
+        header('Location: /alislar');
         exit;
     }
     private function validateFormData($postData, $filesData)

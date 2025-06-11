@@ -2,8 +2,6 @@
 
 namespace app\controllers;
 
-require_once '../core/Autoloader.php';
-
 use core\Flasher;
 use core\Controller;
 use core\Pagination;

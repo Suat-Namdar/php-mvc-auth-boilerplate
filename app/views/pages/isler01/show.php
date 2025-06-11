@@ -1,25 +1,10 @@
 <?php
-$title = 'Products';
+$title = 'İşler';
 ob_start();
 ?>
 
 <section class="bg-white rounded p-4 shadow-lg grid md:grid-cols-2 gap-4">
-    <div class="flex justify-center items-start overflow-hidden rounded-md">
-        <img src="/<?= $product->thumbnail ?>" alt="Thumbnail">
-    </div>
-    <div class="relative">
-        <div class="mb-2">
-            <h3 class="font-semibold">Name:</h3>
-            <span><?= $product->name ?></span>
-        </div>
-        <div class="mb-2">
-            <h3 class="font-semibold">Price:</h3>
-            <span>$<?= $product->price ?></span>
-        </div>
-        <div class="mb-2">
-            <h3 class="font-semibold">Description:</h3>
-            <span><?= $product->description ?></span>
-        </div>
+    
         <div class="absolute bottom-0 right-0 flex justify-center items-center gap-2">
             <button id="openProductModalEdit"
                 class="px-3 py-1 rounded border border-cyan-500 hover:bg-cyan-500 text-cyan-500 hover:text-white font-medium">

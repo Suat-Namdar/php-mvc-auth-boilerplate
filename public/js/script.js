@@ -52,3 +52,12 @@ function closeAlert() {
   const alert = document.querySelector('[role="alert"]');
   alert.remove();
 }
+
+const sidebar = document.getElementById('sidebar');
+const openSidebarBtn = document.getElementById('openSidebar');
+
+if (sidebar && openSidebarBtn) {
+    openSidebarBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('hidden');
+    });
+}
